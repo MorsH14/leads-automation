@@ -17,6 +17,57 @@ import {
 import { SectionLabel } from '../properties/Properties.styles';
 
 const Contact = () => {
+    const [formData, setFormData] = React.useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        market: 'London',
+        message: ''
+    });
+    const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('loading');
+
+        try {
+            const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: formData.message,
+                    market: formData.market
+                }),
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    phone: '',
+                    market: 'London',
+                    message: ''
+                });
+                setTimeout(() => setStatus('idle'), 5000);
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setStatus('error');
+        }
+    };
     return (
         <ContactSectionWrapper id="contact">
             <Container maxWidth="xl">
@@ -32,30 +83,43 @@ const Contact = () => {
                 </ContactHeader>
 
                 <ContactFormWrapper>
-                    <FormContainer component="form">
+                    <FormContainer component="form" onSubmit={handleSubmit}>
                         <FormGrid>
                             <StyledTextField
                                 required
                                 fullWidth
                                 label="First Name"
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
                                 variant="outlined"
                             />
                             <StyledTextField
                                 required
                                 fullWidth
                                 label="Last Name"
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
                                 variant="outlined"
                             />
                             <StyledTextField
                                 required
                                 fullWidth
                                 label="Email Address"
+                                name="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 variant="outlined"
                             />
                             <StyledTextField
                                 required
                                 fullWidth
                                 label="Phone Number"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
                                 variant="outlined"
                             />
 
@@ -63,8 +127,10 @@ const Contact = () => {
                                 select
                                 fullWidth
                                 label="Market of Interest"
+                                name="market"
+                                value={formData.market}
+                                onChange={handleChange}
                                 variant="outlined"
-                                defaultValue="London"
                                 SelectProps={{ native: true }}
                             >
                                 <option value="London">London, United Kingdom</option>
@@ -76,6 +142,9 @@ const Contact = () => {
                                 required
                                 fullWidth
                                 label="Your Message"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
                                 multiline
                                 rows={6}
                                 placeholder="Describe your property requirements..."
@@ -84,8 +153,14 @@ const Contact = () => {
                         </FormGrid>
 
                         <ButtonWrapper>
-                            <SubmitButton variant="contained">
-                                Send Inquiry
+                            <SubmitButton
+                                variant="contained"
+                                type="submit"
+                                disabled={status === 'loading'}
+                            >
+                                {status === 'loading' ? 'Sending...' :
+                                    status === 'success' ? 'Inquiry Sent!' :
+                                        status === 'error' ? 'Error Sending' : 'Send Inquiry'}
                             </SubmitButton>
                         </ButtonWrapper>
                     </FormContainer>

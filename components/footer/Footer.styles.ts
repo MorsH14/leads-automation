@@ -58,7 +58,7 @@ export const FooterLinkItem = styled(Link)(({ theme }) => ({
     color: theme.palette.secondary.main,
     transform: 'translateX(4px)',
   },
-}));
+})) as typeof Link;
 
 export const SocialMediaIcons = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -105,7 +105,7 @@ export const BottomLinks = styled(Box)(({ theme }) => ({
 export const InlineFooterLink = styled(FooterLinkItem)({
   display: 'inline',
   margin: 0,
-});
+}) as typeof Link;
 
 export const FooterDescription = styled(Typography)(({ theme }) => ({
   color: '#a0a0a0',

@@ -81,10 +81,7 @@ const Properties = ({ properties }: PropertiesProps) => {
                     <Grid container spacing={{ xs: 3, sm: 4, md: 5 }} justifyContent="center">
                         {properties.map((property) => (
                             <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                md={4}
+                                size={{ xs: 12, sm: 6, md: 4 }}
                                 key={property.id}
                             >
                                 <GridItemWrapper>
@@ -180,19 +177,19 @@ const Properties = ({ properties }: PropertiesProps) => {
                             </DialogDescription>
 
                             <FeaturesContainer container spacing={2}>
-                                <Grid item xs={4}>
+                                <Grid size={4}>
                                     <FeatureItemVertical>
                                         <KingBedIcon />
                                         <FeatureCaption variant="caption">{selectedProperty.beds} Beds</FeatureCaption>
                                     </FeatureItemVertical>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid size={4}>
                                     <FeatureItemVertical>
                                         <BathtubIcon />
                                         <FeatureCaption variant="caption">{selectedProperty.baths} Baths</FeatureCaption>
                                     </FeatureItemVertical>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid size={4}>
                                     <FeatureItemVertical>
                                         <SquareFootIcon />
                                         <FeatureCaption variant="caption">{selectedProperty.area}</FeatureCaption>

@@ -45,7 +45,7 @@ export const ContactFormWrapper = styled(Box)(({ theme }) => ({
 export const FormContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
-});
+}) as typeof Box;
 
 export const FormGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
