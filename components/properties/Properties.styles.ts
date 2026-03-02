@@ -1,9 +1,22 @@
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Container, Typography, Card, CardMedia, Button, Chip, Grid } from '@mui/material';
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Card, 
+  CardMedia, 
+  Button, 
+  Chip, 
+  Dialog, 
+  DialogContent,
+  IconButton,
+  Grid
+} from '@mui/material';
 
 export const PropertiesSectionWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(14, 0),
   backgroundColor: '#f8f9fa',
+  scrollMarginTop: '80px', // Offset for fixed headers if any
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(8, 0),
   },
@@ -50,6 +63,7 @@ export const PropertyCard = styled(Card)(({ theme }) => ({
   overflow: 'hidden',
   position: 'relative',
   border: '1px solid rgba(0,0,0,0.05)',
+  cursor: 'pointer', // Indicate interactivity
   boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
   '&:hover': {
     transform: 'translateY(-12px)',
@@ -90,7 +104,7 @@ export const StatusChip = styled(Chip)(({ theme }) => ({
   position: 'absolute',
   top: 16,
   left: '50%',
-  transform: 'translateX(-50%)', // Center the chip
+  transform: 'translateX(-50%)',
   backgroundColor: alpha(theme.palette.common.black, 0.7),
   color: theme.palette.common.white,
   backdropFilter: 'blur(10px)',
@@ -106,7 +120,7 @@ export const PriceBadge = styled(Box)(({ theme }) => ({
   position: 'absolute',
   bottom: 0,
   left: '50%',
-  transform: 'translateX(-50%)', // Center the price badge
+  transform: 'translateX(-50%)',
   backgroundColor: theme.palette.common.white,
   padding: '10px 24px',
   borderTopLeftRadius: '12px',
@@ -125,8 +139,8 @@ export const CardContentWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center', // Center content horizontally
-  textAlign: 'center', // Center text alignment
+  alignItems: 'center',
+  textAlign: 'center',
   flexGrow: 1,
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(3),
@@ -158,7 +172,7 @@ export const LocationText = styled(Typography)(({ theme }) => ({
   fontSize: '0.9rem',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center', // Center flex content
+  justifyContent: 'center',
   marginBottom: theme.spacing(2.5),
   gap: '6px',
   '& svg': {
@@ -169,8 +183,8 @@ export const LocationText = styled(Typography)(({ theme }) => ({
 
 export const FeaturesGrid = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'center', // Center icons
-  gap: theme.spacing(4), // Add gap between items
+  justifyContent: 'center',
+  gap: theme.spacing(4),
   width: '100%',
   padding: theme.spacing(2, 0),
   borderTop: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
@@ -197,13 +211,13 @@ export const FeatureItem = styled(Box)(({ theme }) => ({
 
 export const CardButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(3),
-  padding: '12px 40px', // More horizontal padding for centered button
+  padding: '12px 40px',
   borderRadius: '6px',
   border: `1.5px solid ${alpha(theme.palette.primary.main, 0.15)}`,
   color: theme.palette.primary.main,
   fontWeight: 700,
   fontSize: '0.9rem',
-  width: 'auto', // Don't take full width
+  width: 'auto',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   '&:hover': {
      backgroundColor: theme.palette.primary.main,
@@ -211,7 +225,126 @@ export const CardButton = styled(Button)(({ theme }) => ({
      borderColor: theme.palette.primary.main,
   },
   [theme.breakpoints.down('sm')]: {
-    width: '100%', // Full width on mobile is usually better for touch
+    width: '100%',
     padding: '10px',
   },
+}));
+
+/* Dialog Styles for "Explore" functionality */
+
+export const StyledDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: '20px',
+    maxWidth: '1000px',
+    overflow: 'hidden',
+  },
+}));
+
+export const DialogWrapper = styled(DialogContent)(({ theme }) => ({
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+  },
+}));
+
+export const DialogImageArea = styled(Box)(({ theme }) => ({
+  width: '50%',
+  height: 'auto',
+  minHeight: '500px',
+  position: 'relative',
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    minHeight: '300px',
+  },
+}));
+
+export const DialogTextArea = styled(Box)(({ theme }) => ({
+  width: '50%',
+  padding: theme.spacing(6),
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: theme.palette.common.white,
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    padding: theme.spacing(4),
+  },
+}));
+
+export const CloseIconButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  top: 16,
+  right: 16,
+  zIndex: 10,
+  backgroundColor: 'rgba(0,0,0,0.2)',
+  color: theme.palette.common.white,
+  '&:hover': {
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+}));
+
+export const DialogPropertyTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: 800,
+  fontSize: '2.4rem',
+  color: theme.palette.primary.main,
+  fontFamily: 'var(--font-playfair), serif',
+  marginBottom: theme.spacing(2),
+}));
+
+export const DialogPropertyPrice = styled(Typography)(({ theme }) => ({
+  fontSize: '1.8rem',
+  fontWeight: 700,
+  color: theme.palette.secondary.main,
+  marginBottom: theme.spacing(3),
+}));
+
+export const DialogDescription = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  lineHeight: 1.8,
+  fontSize: '1.05rem',
+  marginBottom: theme.spacing(4),
+}));
+
+export const InquireButton = styled(Button)(({ theme }) => ({
+  marginTop: 'auto',
+  padding: '16px',
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  fontSize: '1.1rem',
+  fontWeight: 700,
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+    transform: 'translateY(-2px)',
+  },
+}));
+
+export const GridItemWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex', 
+  justifyContent: 'center',
+  width: '100%',
+}));
+
+export const LocationTextDialog = styled(LocationText)(({ theme }) => ({
+  justifyContent: 'flex-start',
+  marginBottom: theme.spacing(4),
+}));
+
+export const FeaturesContainer = styled(Grid)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+}));
+
+export const FeatureItemVertical = styled(FeatureItem)(({ theme }) => ({
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+}));
+
+export const FeatureCaption = styled(Typography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '0.75rem',
+}));
+
+export const EmptyBox = styled(Box)(({ theme }) => ({
+  textAlign: 'center',
+  padding: theme.spacing(10, 0),
 }));

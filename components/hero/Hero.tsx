@@ -11,7 +11,29 @@ import {
     SearchButton
 } from './Hero.styles';
 
-const Hero = () => {
+interface HeroProps {
+    filters: {
+        location: string;
+        type: string;
+        budget: string;
+    };
+    onFilterChange: (filters: any) => void;
+}
+
+const Hero = ({ filters, onFilterChange }: HeroProps) => {
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        onFilterChange({ [name]: value });
+    };
+
+    const handleSearch = () => {
+        const propertiesSection = document.getElementById('properties');
+        if (propertiesSection) {
+            propertiesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <HeroSection>
             <HeroContainer maxWidth="xl">
@@ -20,7 +42,7 @@ const Hero = () => {
                     Experience the pinnacle of luxury living in world-class destinations.
                     The finest residences in London, Toronto, and Dubai.
                 </HeroSubtitle>
-                <MainCTA variant="contained" size="large">
+                <MainCTA variant="contained" size="large" onClick={handleSearch}>
                     Discover Collections
                 </MainCTA>
 
@@ -29,9 +51,12 @@ const Hero = () => {
                         select
                         label="Location"
                         fullWidth
-                        defaultValue="London"
+                        name="location"
+                        value={filters.location}
+                        onChange={handleChange}
                         variant="outlined"
                     >
+                        <MenuItem value="All">All Locations</MenuItem>
                         <MenuItem value="London">London, UK</MenuItem>
                         <MenuItem value="Toronto">Toronto, Canada</MenuItem>
                         <MenuItem value="Dubai">Dubai, UAE</MenuItem>
@@ -41,23 +66,31 @@ const Hero = () => {
                         select
                         label="Property Type"
                         fullWidth
-                        defaultValue="Villa"
+                        name="type"
+                        value={filters.type}
+                        onChange={handleChange}
                         variant="outlined"
                     >
+                        <MenuItem value="All">All Types</MenuItem>
                         <MenuItem value="Villa">Luxury Villa</MenuItem>
                         <MenuItem value="Penthouse">Elite Penthouse</MenuItem>
                         <MenuItem value="Mansion">Modern Mansion</MenuItem>
+                        <MenuItem value="Apartment">Luxury Apartment</MenuItem>
                     </TextField>
 
-                    <TextField
-                        label="Budget"
+                    {/* <TextField
+                        label="Max Budget"
                         fullWidth
-                        placeholder="Price Range"
+                        name="budget"
+                        value={filters.budget}
+                        onChange={handleChange}
+                        placeholder="e.g. 10000000"
                         variant="outlined"
-                    />
+                        type="number"
+                    /> */}
 
-                    <SearchButton variant="contained" fullWidth>
-                        Search
+                    <SearchButton variant="contained" fullWidth onClick={handleSearch}>
+                        Filter Results
                     </SearchButton>
                 </SearchBarWrapper>
             </HeroContainer>

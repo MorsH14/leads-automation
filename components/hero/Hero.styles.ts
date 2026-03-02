@@ -77,7 +77,7 @@ export const SearchBarWrapper = styled(Box)(({ theme }) => ({
   marginInline: 'auto',
   boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
+  gridTemplateColumns: 'repeat(3, 1fr)',
   gap: theme.spacing(3),
   alignItems: 'center',
   [theme.breakpoints.down('md')]: {
