@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
     const [leads, setLeads] = useState([]);
 
-    useEffect(() => {
-        fetch("/api/leads")
-            .then((res) => res.json())
-            .then((data) => setLeads(data));
-    }, []);
+
+    fetch("/api/leads")
+        .then((res) => res.json())
+        .then((data) => setLeads(data));
 
     return (
         <div className="p-10">
