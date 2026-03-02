@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import ThemeRegistry from '@/lib/ThemeRegistry';
 
 const inter = Inter({
@@ -8,16 +8,10 @@ const inter = Inter({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-});
-
 export const metadata: Metadata = {
-  title: 'MorH14 Luxury Estates | Global Real Estate Registry',
-  description: 'Curated luxury residences in London, Toronto, and Dubai. Bespoke advisory for international investors.',
-  keywords: 'luxury real estate, london property, dubai villas, toronto mansions, elite living',
+  title: 'MorH14 | Lead Automation for Real Estate Professionals',
+  description: 'Turn visitors into clients with fast follow-ups — no leads left behind. The premium lead capture system for elite real estate agents.',
+  keywords: 'real estate lead automation, agent CRM, lead follow-up, property lead capture, real estate marketing',
 };
 
 export default function RootLayout({
@@ -26,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable}`}>
       <body style={{ margin: 0, padding: 0 }}>
         <ThemeRegistry>
           {children}

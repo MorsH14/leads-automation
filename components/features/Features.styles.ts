@@ -30,11 +30,14 @@ export const SectionTitle = styled(Typography)(({ theme }) => ({
 export const FeatureGridWrapper = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(8),
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: theme.spacing(4),
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: theme.spacing(3),
+  [theme.breakpoints.down('lg')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
   [theme.breakpoints.down('md')]: {
-    gridTemplateColumns: 'repeat(1, 1fr)',
-    gap: theme.spacing(6),
+    gridTemplateColumns: '1fr',
+    gap: theme.spacing(5),
   },
 }));
 

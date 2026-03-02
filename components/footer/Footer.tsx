@@ -32,8 +32,8 @@ const Footer = () => {
                             MORS<span>H14</span>
                         </FooterLogoText>
                         <FooterDescription variant="body1">
-                            Global leaders in luxury real estate advisory. Defining the pinnacle
-                            of elite living across London, Toronto, and Dubai for over 25 years.
+                            The industry standard for real estate lead automation.
+                            Turn visitors into clients with fast follow-ups — no leads left behind.
                         </FooterDescription>
                         <SocialMediaIcons>
                             <SocialIconButton size="small">
@@ -78,7 +78,7 @@ const Footer = () => {
 
                 <CopyrightRow>
                     <Box component="span">
-                        © {currentYear} MorH14 Luxury Estates Group. All sovereign rights reserved.
+                        © {currentYear} MorH14 Group. Lead Automation Demo for Real Estate Professionals.
                     </Box>
                     <BottomLinks>
                         <InlineFooterLink component="a" href="#">Privacy Policy</InlineFooterLink>

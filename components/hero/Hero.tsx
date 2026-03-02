@@ -1,98 +1,65 @@
 'use client';
-import React from 'react';
-import { MenuItem, TextField } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
     HeroSection,
     HeroContainer,
     HeroTitle,
     HeroSubtitle,
-    MainCTA,
-    SearchBarWrapper,
-    SearchButton
+    CTAWrapper,
+    PrimaryCTA,
+    SecondaryCTA,
+    TrustIndicators,
+    TrustItem
 } from './Hero.styles';
 
-interface HeroProps {
-    filters: {
-        location: string;
-        type: string;
-        budget: string;
-    };
-    onFilterChange: (filters: any) => void;
-}
-
-const Hero = ({ filters, onFilterChange }: HeroProps) => {
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        onFilterChange({ [name]: value });
-    };
-
-    const handleSearch = () => {
+const Hero = () => {
+    const scrollToWorks = () => {
         const propertiesSection = document.getElementById('properties');
         if (propertiesSection) {
             propertiesSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
+    const scrollToDemo = () => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <HeroSection>
             <HeroContainer maxWidth="xl">
-                <HeroTitle variant="h1">Find Your Dream Property</HeroTitle>
+                <HeroTitle variant="h1">
+                    Turn Visitors Into Clients Automatically
+                </HeroTitle>
                 <HeroSubtitle variant="h5">
-                    Experience the pinnacle of luxury living in world-class destinations.
-                    The finest residences in London, Toronto, and Dubai.
+                    Automated lead capture and instant follow-ups designed for high-performing real estate agents.
                 </HeroSubtitle>
-                <MainCTA variant="contained" size="large" onClick={handleSearch}>
-                    Discover Collections
-                </MainCTA>
 
-                <SearchBarWrapper>
-                    <TextField
-                        select
-                        label="Location"
-                        fullWidth
-                        name="location"
-                        value={filters.location}
-                        onChange={handleChange}
-                        variant="outlined"
-                    >
-                        <MenuItem value="All">All Locations</MenuItem>
-                        <MenuItem value="London">London, UK</MenuItem>
-                        <MenuItem value="Toronto">Toronto, Canada</MenuItem>
-                        <MenuItem value="Dubai">Dubai, UAE</MenuItem>
-                    </TextField>
+                <CTAWrapper>
+                    <PrimaryCTA variant="contained" size="large" onClick={scrollToWorks}>
+                        See How It Works
+                    </PrimaryCTA>
+                    <SecondaryCTA variant="outlined" size="large" onClick={scrollToDemo}>
+                        Request Demo
+                    </SecondaryCTA>
+                </CTAWrapper>
 
-                    <TextField
-                        select
-                        label="Property Type"
-                        fullWidth
-                        name="type"
-                        value={filters.type}
-                        onChange={handleChange}
-                        variant="outlined"
-                    >
-                        <MenuItem value="All">All Types</MenuItem>
-                        <MenuItem value="Villa">Luxury Villa</MenuItem>
-                        <MenuItem value="Penthouse">Elite Penthouse</MenuItem>
-                        <MenuItem value="Mansion">Modern Mansion</MenuItem>
-                        <MenuItem value="Apartment">Luxury Apartment</MenuItem>
-                    </TextField>
-
-                    {/* <TextField
-                        label="Max Budget"
-                        fullWidth
-                        name="budget"
-                        value={filters.budget}
-                        onChange={handleChange}
-                        placeholder="e.g. 10000000"
-                        variant="outlined"
-                        type="number"
-                    /> */}
-
-                    <SearchButton variant="contained" fullWidth onClick={handleSearch}>
-                        Filter Results
-                    </SearchButton>
-                </SearchBarWrapper>
+                <TrustIndicators>
+                    <TrustItem>
+                        <CheckCircleIcon fontSize="small" />
+                        <span>Instant Response</span>
+                    </TrustItem>
+                    <TrustItem>
+                        <CheckCircleIcon fontSize="small" />
+                        <span>Organized Lead Dashboard</span>
+                    </TrustItem>
+                    <TrustItem>
+                        <CheckCircleIcon fontSize="small" />
+                        <span>No Missed Inquiries</span>
+                    </TrustItem>
+                </TrustIndicators>
             </HeroContainer>
         </HeroSection>
     );

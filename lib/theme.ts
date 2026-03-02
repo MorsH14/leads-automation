@@ -25,22 +25,23 @@ const theme = createTheme({
   typography: {
     fontFamily: 'var(--font-inter), "Inter", sans-serif',
     h1: {
-      fontFamily: 'var(--font-playfair), serif',
-      fontWeight: 700,
-      letterSpacing: '-0.02em',
+      fontFamily: 'var(--font-inter), sans-serif',
+      fontWeight: 800,
+      letterSpacing: '-0.03em',
     },
     h2: {
-      fontFamily: 'var(--font-playfair), serif',
+      fontFamily: 'var(--font-inter), sans-serif',
+      fontWeight: 800,
+      letterSpacing: '-0.02em',
+    },
+    h3: {
+      fontFamily: 'var(--font-inter), sans-serif',
       fontWeight: 700,
       letterSpacing: '-0.01em',
     },
-    h3: {
-      fontFamily: 'var(--font-playfair), serif',
-      fontWeight: 600,
-    },
     h4: {
-      fontFamily: 'var(--font-playfair), serif',
-      fontWeight: 600,
+      fontFamily: 'var(--font-inter), sans-serif',
+      fontWeight: 700,
     },
     h5: {
       fontWeight: 500,

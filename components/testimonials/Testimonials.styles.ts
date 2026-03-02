@@ -54,11 +54,11 @@ export const TestimonialCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-export const QuoteWrapper = styled(Box)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-  fontSize: '2.5rem',
-  lineHeight: 1,
-  marginBottom: theme.spacing(-2),
+export const RatingWrapper = styled(Box)(({ theme }) => ({
+  color: '#ffc107',
+  display: 'flex',
+  gap: '2px',
+  marginBottom: theme.spacing(1),
 }));
 
 export const TestimonialText = styled(Typography)(({ theme }) => ({

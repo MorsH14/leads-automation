@@ -15,7 +15,7 @@ import {
     PropertyCard,
     ImageWrapper,
     StyledCardMedia,
-    StatusChip,
+    LeadTag,
     PriceBadge,
     CardContentWrapper,
     PropertyCategory,
@@ -68,21 +68,21 @@ const Properties = ({ properties }: PropertiesProps) => {
     return (
         <PropertiesSectionWrapper id="properties">
             <SectionContainer maxWidth="xl">
-                <SectionLabel>Curated Selection</SectionLabel>
-                <SectionTitle variant="h2">Featured Luxury Estates</SectionTitle>
+                <SectionLabel>Live Activity</SectionLabel>
+                <SectionTitle variant="h2">Recent Lead Inquiries</SectionTitle>
 
                 {properties.length === 0 ? (
                     <EmptyBox>
                         <PropertyName variant="h5">
-                            No properties found matching your criteria.
+                            No lead activity detected at this time.
                         </PropertyName>
                     </EmptyBox>
                 ) : (
-                    <Grid container spacing={{ xs: 3, sm: 4, md: 5 }} justifyContent="center">
-                        {properties.map((property) => (
+                    <Grid container spacing={2.5} justifyContent="center" sx={{ width: '100%', margin: 0 }}>
+                        {properties.map((property, index) => (
                             <Grid
-                                // size={{ xs: 12, sm: 6, md: 4 }}
                                 key={property.id}
+                                size={{ xs: 12, sm: 6, md: 4 }}
                             >
                                 <GridItemWrapper>
                                     <PropertyCard elevation={0} onClick={() => handleOpenExplore(property)}>
@@ -92,7 +92,9 @@ const Properties = ({ properties }: PropertiesProps) => {
                                                 image={property.img}
                                                 title={property.title}
                                             />
-                                            <StatusChip label={property.status} />
+                                            <LeadTag className="lead-tag">
+                                                {index === 0 ? 'Hot Lead' : index === 1 ? 'New Inquiry' : 'Recently Viewed'}
+                                            </LeadTag>
                                             <PriceBadge>{property.price}</PriceBadge>
                                         </ImageWrapper>
 
@@ -126,7 +128,7 @@ const Properties = ({ properties }: PropertiesProps) => {
                                                 className="view-btn"
                                                 endIcon={<ArrowForwardIcon />}
                                             >
-                                                Examine Asset
+                                                View Lead Details
                                             </CardButton>
                                         </CardContentWrapper>
                                     </PropertyCard>
@@ -158,7 +160,7 @@ const Properties = ({ properties }: PropertiesProps) => {
 
                         <DialogTextArea>
                             <PropertyCategory variant="overline">
-                                {selectedProperty.category}
+                                Lead Details
                             </PropertyCategory>
                             <DialogPropertyTitle variant="h2">
                                 {selectedProperty.title}
@@ -202,7 +204,7 @@ const Properties = ({ properties }: PropertiesProps) => {
                                 size="large"
                                 onClick={handleInquiry}
                             >
-                                Inquire About Asset
+                                Process Lead
                             </InquireButton>
                         </DialogTextArea>
                     </DialogWrapper>

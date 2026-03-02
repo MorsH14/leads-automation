@@ -8,7 +8,8 @@ import {
     AboutTextContent,
     AboutSectionTitle,
     AboutDescription,
-    LearnMoreButton
+    LearnMoreButton,
+    SectionLabel
 } from './About.styles';
 
 const About = () => {
@@ -19,31 +20,31 @@ const About = () => {
                     {/* Image Left */}
                     <AboutImageContainer>
                         <img
-                            src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?q=80&w=1984&auto=format&fit=crop"
-                            alt="Luxury Real Estate Advisory"
+                            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+                            alt="Lead Automation Dashboard"
                         />
                     </AboutImageContainer>
 
                     {/* Text Right */}
                     <AboutTextContent>
+                        <SectionLabel>Our Mission</SectionLabel>
                         <AboutSectionTitle variant="h2">
-                            Defining the Global Standard for Luxury Real Estate
+                            Built for Modern Real Estate Professionals
                         </AboutSectionTitle>
                         <AboutDescription variant="body1">
-                            With over two decades of unmatched expertise, we bridge the gap between
-                            discerning investors and the world’s most prestigious property markets.
-                            Our advisory goes beyond simple transactions; we curate lifestyle
-                            investments that define legacy.
+                            In a fast-paced market, speed is everything. Our lead automation system
+                            is designed specifically for high-performing agents who can't afford
+                            to let a single inquiry slip through the cracks.
                         </AboutDescription>
                         <AboutDescription variant="body1">
-                            From historic estates in London to modern vertical paradises in Dubai
-                            and waterfront retreats in Toronto, our portfolio is as diverse as it
-                            is exclusive. We provide a bespoke service designed specifically for
-                            high-net-worth individuals and family offices globally.
+                            We help you eliminate missed opportunities, drastically reduce your
+                            response time, and significantly increase deal conversion rates.
+                            Our technology works in the background so you can focus on what
+                            you do best: closing deals and building relationships.
                         </AboutDescription>
 
                         <LearnMoreButton variant="outlined">
-                            Our Vision & Philosophy
+                            See The Dashboard
                         </LearnMoreButton>
                     </AboutTextContent>
                 </SplitLayout>

@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
 import { Container } from '@mui/material';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import PublicIcon from '@mui/icons-material/Public';
-import SecurityIcon from '@mui/icons-material/Security';
+import BoltIcon from '@mui/icons-material/Bolt';
+import AutoModeIcon from '@mui/icons-material/AutoMode';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import {
     FeaturesSectionWrapper,
     SectionTitle,
@@ -18,21 +19,27 @@ import {
 const featuresData = [
     {
         id: 1,
-        icon: <WorkspacePremiumIcon />,
-        title: 'Expert Market Insight',
-        description: 'Deep local knowledge in three of the world\'s most competitive real estate markets: London, Toronto, and Dubai.'
+        icon: <BoltIcon />,
+        title: 'Instant Lead Capture',
+        description: 'Every inquiry is captured automatically and stored securely in your private database.'
     },
     {
         id: 2,
-        icon: <PublicIcon />,
-        title: 'Global Network',
-        description: 'Exclusive access to off-market properties and international investors, ensuring seamless cross-border transactions.'
+        icon: <AutoModeIcon />,
+        title: 'Automated Follow-Ups',
+        description: 'Respond instantly via email or DM without manual effort, ensuring you never miss a beat.'
     },
     {
         id: 3,
-        icon: <SecurityIcon />,
-        title: 'Bespoke Privacy',
-        description: 'Ultra-secure handling of high-value asset acquisitions with complete confidentiality for every distinguished client.'
+        icon: <DashboardIcon />,
+        title: 'Organized Dashboard',
+        description: 'Manage all your leads, properties, and client interactions in one clean, intuitive system.'
+    },
+    {
+        id: 4,
+        icon: <TrendingUpIcon />,
+        title: 'Higher Conversion Rates',
+        description: 'Faster response times and organized follow-ups directly lead to more closed deals.'
     }
 ];
 
@@ -40,9 +47,9 @@ const Features = () => {
     return (
         <FeaturesSectionWrapper id="why-choose-us">
             <Container maxWidth="xl">
-                <SectionLabel>Our Excellence</SectionLabel>
+                <SectionLabel>Performance Focused</SectionLabel>
                 <SectionTitle variant="h2">
-                    Why Discerning Clients Choose Us
+                    Engineered for Modern Agents
                 </SectionTitle>
 
                 <FeatureGridWrapper>

@@ -1,19 +1,38 @@
-import { NextResponse } from "next/server";
-import Lead from "@/models/lead";
 import { connectDB } from "@/lib/mongoDb";
+import lead from "@/models/lead";
+import { NextResponse } from "next/server";
+
 
 export async function POST(req: Request) {
-  await connectDB();
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const lead = await Lead.create(body);
+    const { name, email, phone, message } = body;
 
-  return NextResponse.json({ success: true, lead });
-}
+    if (!name || !email) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
 
-export async function GET() {
-  await connectDB();
-  const leads = await Lead.find().sort({ createdAt: -1 });
+    await connectDB();
 
-  return NextResponse.json(leads);
+    const newLead = await lead.create({
+      name,
+      email,
+      phone,
+      message,
+    });
+
+    return NextResponse.json(
+      { success: true, data: newLead },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }

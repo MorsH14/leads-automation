@@ -60,19 +60,19 @@ export const propertiesData: Property[] = [
     status: 'Newly Listed',
     type: 'Mansion'
   },
-  {
-    id: 4,
-    title: 'Chelsea Garden Residence',
-    category: 'Luxury Apartment',
-    location: 'London',
-    price: '£4,200,000',
-    numericPrice: 4200000,
-    description: 'A charming garden residence in the heart of Chelsea. Featuring private access to landscaped communal gardens and bespoke interior design.',
-    img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop',
-    beds: 3,
-    baths: 2,
-    area: '1,800 sq ft',
-    status: 'Sold Out',
-    type: 'Apartment'
-  }
+  // {
+  //   id: 4,
+  //   title: 'Chelsea Garden Residence',
+  //   category: 'Luxury Apartment',
+  //   location: 'London',
+  //   price: '£4,200,000',
+  //   numericPrice: 4200000,
+  //   description: 'A charming garden residence in the heart of Chelsea. Featuring private access to landscaped communal gardens and bespoke interior design.',
+  //   img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop',
+  //   beds: 3,
+  //   baths: 2,
+  //   area: '1,800 sq ft',
+  //   status: 'Sold Out',
+  //   type: 'Apartment'
+  // }
 ];

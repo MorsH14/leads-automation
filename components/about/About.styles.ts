@@ -6,6 +6,16 @@ export const AboutSectionWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: '#fcfcfc',
 }));
 
+export const SectionLabel = styled(Typography)(({ theme }) => ({
+  textAlign: 'left',
+  marginBottom: theme.spacing(1),
+  color: theme.palette.secondary.main,
+  textTransform: 'uppercase',
+  letterSpacing: '0.15em',
+  fontSize: '0.85rem',
+  fontWeight: 600,
+}));
+
 export const SplitLayout = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',

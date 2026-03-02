@@ -6,7 +6,6 @@ import {
   Card, 
   CardMedia, 
   Button, 
-  Chip, 
   Dialog, 
   DialogContent,
   IconButton,
@@ -23,6 +22,9 @@ export const PropertiesSectionWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const SectionContainer = styled(Container)(({ theme }) => ({
+  maxWidth: '1200px !important',
+  paddingLeft: theme.spacing(4),
+  paddingRight: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
@@ -41,20 +43,21 @@ export const SectionLabel = styled(Typography)(({ theme }) => ({
 
 export const SectionTitle = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
-  marginBottom: theme.spacing(8),
+  marginBottom: theme.spacing(6),
   fontWeight: 800,
-  fontSize: '3rem',
+  fontSize: '3.2rem',
   color: theme.palette.primary.main,
-  fontFamily: 'var(--font-playfair), serif',
+  letterSpacing: '-0.02em',
   [theme.breakpoints.down('sm')]: {
-    fontSize: '2.2rem',
-    marginBottom: theme.spacing(5),
+    fontSize: '2.4rem',
+    marginBottom: theme.spacing(4),
     padding: '0 10px',
   },
 }));
 
 export const PropertyCard = styled(Card)(({ theme }) => ({
   height: '100%',
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   transition: 'all 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -63,21 +66,20 @@ export const PropertyCard = styled(Card)(({ theme }) => ({
   overflow: 'hidden',
   position: 'relative',
   border: '1px solid rgba(0,0,0,0.05)',
-  cursor: 'pointer', // Indicate interactivity
+  cursor: 'pointer',
   boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
   '&:hover': {
     transform: 'translateY(-12px)',
     boxShadow: '0 30px 60px rgba(26, 35, 126, 0.12)',
     '& .card-image': {
-      transform: 'scale(1.1)',
+      transform: 'scale(1.08)',
     },
     '& .view-btn': {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.common.white,
     }
   },
-  [theme.breakpoints.down('sm')]: {
-    borderRadius: '12px',
+  [theme.breakpoints.down('md')]: {
     '&:hover': {
       transform: 'none',
     }
@@ -85,12 +87,12 @@ export const PropertyCard = styled(Card)(({ theme }) => ({
 }));
 
 export const ImageWrapper = styled(Box)(({ theme }) => ({
-  height: 320,
+  height: 260,
   width: '100%',
   overflow: 'hidden',
   position: 'relative',
   [theme.breakpoints.down('sm')]: {
-    height: 240,
+    height: 220,
   },
 }));
 
@@ -100,20 +102,21 @@ export const StyledCardMedia = styled(CardMedia)({
   transition: 'transform 0.6s ease-in-out',
 }) as typeof CardMedia;
 
-export const StatusChip = styled(Chip)(({ theme }) => ({
+export const LeadTag = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: 16,
-  left: '50%',
-  transform: 'translateX(-50%)',
-  backgroundColor: alpha(theme.palette.common.black, 0.7),
+  left: 16,
+  backgroundColor: theme.palette.secondary.main,
   color: theme.palette.common.white,
-  backdropFilter: 'blur(10px)',
-  fontWeight: 600,
-  fontSize: '0.65rem',
-  textTransform: 'uppercase',
-  padding: '4px',
+  padding: '6px 14px',
   borderRadius: '4px',
-  border: 'none',
+  fontSize: '0.7rem',
+  fontWeight: 700,
+  textTransform: 'uppercase',
+  letterSpacing: '0.05em',
+  boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+  zIndex: 2,
+  transition: 'all 0.3s ease',
 }));
 
 export const PriceBadge = styled(Box)(({ theme }) => ({
@@ -286,14 +289,13 @@ export const CloseIconButton = styled(IconButton)(({ theme }) => ({
 
 export const DialogPropertyTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 800,
-  fontSize: '2.4rem',
+  fontSize: '2rem',
   color: theme.palette.primary.main,
-  fontFamily: 'var(--font-playfair), serif',
   marginBottom: theme.spacing(2),
 }));
 
 export const DialogPropertyPrice = styled(Typography)(({ theme }) => ({
-  fontSize: '1.8rem',
+  fontSize: '1.5rem',
   fontWeight: 700,
   color: theme.palette.secondary.main,
   marginBottom: theme.spacing(3),
@@ -302,13 +304,13 @@ export const DialogPropertyPrice = styled(Typography)(({ theme }) => ({
 export const DialogDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   lineHeight: 1.8,
-  fontSize: '1.05rem',
+  fontSize: '1rem',
   marginBottom: theme.spacing(4),
 }));
 
 export const InquireButton = styled(Button)(({ theme }) => ({
   marginTop: 'auto',
-  padding: '16px',
+  padding: '12px',
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.common.white,
   fontSize: '1.1rem',
