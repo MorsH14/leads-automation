@@ -1,39 +1,84 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Container, Typography, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip } from "@mui/material";
 
 export default function Dashboard() {
     const [leads, setLeads] = useState([]);
-
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch("/api/leads")
             .then((res) => res.json())
-            .then((data) => setLeads(data));
+            .then((data) => {
+                if (data.leads) {
+                    setLeads(data.leads);
+                }
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Error fetching leads:", err);
+                setLoading(false);
+            });
     }, []);
 
     return (
-        <div className="p-10">
-            <h1 className="text-2xl font-bold mb-4">Captured Leads</h1>
+        <Container maxWidth="lg" sx={{ py: 8 }}>
+            <Box mb={4}>
+                <Typography variant="h4" fontWeight="bold" gutterBottom>
+                    Lead Management Dashboard
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                    View and manage all real estate inquiries captured from your website.
+                </Typography>
+            </Box>
 
-            <table className="w-full border">
-                <thead>
-                    <tr className="border">
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {leads.map((lead: any, index) => (
-                        <tr key={index} className="border text-center">
-                            <td>{lead.name}</td>
-                            <td>{lead.email}</td>
-                            <td>{lead.phone}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+            <TableContainer component={Paper} elevation={0} variant="outlined">
+                <Table sx={{ minWidth: 650 }}>
+                    <TableHead sx={{ bgcolor: 'grey.50' }}>
+                        <TableRow>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Date</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Phone</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Message</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {loading ? (
+                            <TableRow>
+                                <TableCell colSpan={6} align="center" sx={{ py: 4 }}>
+                                    Loading leads...
+                                </TableCell>
+                            </TableRow>
+                        ) : leads.length === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={6} align="center" sx={{ py: 4 }}>
+                                    No leads captured yet.
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            leads.map((lead: any) => (
+                                <TableRow key={lead.id} hover>
+                                    <TableCell>
+                                        {new Date(lead.created_at).toLocaleDateString()}
+                                    </TableCell>
+                                    <TableCell sx={{ fontWeight: 500 }}>{lead.name}</TableCell>
+                                    <TableCell>{lead.email}</TableCell>
+                                    <TableCell>{lead.phone}</TableCell>
+                                    <TableCell sx={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                        {lead.message}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Chip label="New" size="small" color="primary" variant="outlined" />
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Container>
     );
 }

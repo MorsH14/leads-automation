@@ -20,7 +20,7 @@ const Contact = () => {
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
-        agencyName: '',
+        phone: '',
         message: ''
     });
     const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -30,19 +30,41 @@ const Contact = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async () => {
-        const res = await fetch("/api/leads", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('loading');
 
-        const data = await res.json();
+        try {
+            const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
 
-        if (data.success) {
-            alert("Lead submitted successfully");
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Submission failed');
+            }
+
+            setStatus('success');
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                message: "",
+            });
+
+            // Reset status after 3 seconds
+            setTimeout(() => setStatus('idle'), 3000);
+        } catch (error: any) {
+            console.error("Submission error:", error);
+            setStatus('error');
+            alert(error.message || "Something went wrong. Please try again.");
+            setTimeout(() => setStatus('idle'), 5000);
         }
     };
+
 
     return (
         <ContactSectionWrapper id="contact">
@@ -83,9 +105,9 @@ const Contact = () => {
                             <StyledTextField
                                 required
                                 fullWidth
-                                label="Agency Name"
-                                name="agencyName"
-                                value={formData.agencyName}
+                                label="Phone Number"
+                                name="phone"
+                                value={formData.phone}
                                 onChange={handleChange}
                                 variant="outlined"
                             />
