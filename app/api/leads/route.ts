@@ -1,15 +1,23 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+export const dynamic = "force-dynamic";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-// Use Service Role Key if available to bypass RLS on the server
-const supabase = createClient(supabaseUrl, supabaseServiceKey || supabaseAnonKey);
+// Helper to get supabase client safely
+const getSupabaseClient = () => {
+  if (!supabaseUrl || (!supabaseServiceKey && !supabaseAnonKey)) {
+    throw new Error("Supabase environment variables are missing");
+  }
+  return createClient(supabaseUrl as string, (supabaseServiceKey || supabaseAnonKey) as string);
+};
 
 export async function POST(req: Request) {
   try {
+    const supabase = getSupabaseClient();
     const body = await req.json();
     const { name, email, phone, message } = body;
 
@@ -47,6 +55,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from("leads")
       .select("*")
