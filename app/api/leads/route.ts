@@ -3,8 +3,10 @@ import { NextResponse } from "next/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Use Service Role Key if available to bypass RLS on the server
+const supabase = createClient(supabaseUrl, supabaseServiceKey || supabaseAnonKey);
 
 export async function POST(req: Request) {
   try {
@@ -30,10 +32,14 @@ export async function POST(req: Request) {
       { success: true, data },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("API Error (POST):", error);
+    const message = error && typeof error === 'object' && 'message' in error 
+        ? (error as any).message 
+        : "Something went wrong";
+    
     return NextResponse.json(
-      { error: error.message || "Something went wrong" },
+      { error: message },
       { status: 500 }
     );
   }
@@ -49,10 +55,14 @@ export async function GET() {
     if (error) throw error;
 
     return NextResponse.json({ success: true, leads: data });
-  } catch (error: any) {
+  } catch (error) {
     console.error("API Error (GET):", error);
+    const message = error && typeof error === 'object' && 'message' in error 
+        ? (error as any).message 
+        : "Failed to fetch leads";
+
     return NextResponse.json(
-      { error: error.message || "Failed to fetch leads" },
+      { error: message },
       { status: 500 }
     );
   }

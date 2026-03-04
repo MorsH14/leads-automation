@@ -33,7 +33,7 @@ const About = () => {
                         </AboutSectionTitle>
                         <AboutDescription variant="body1">
                             In a fast-paced market, speed is everything. Our lead automation system
-                            is designed specifically for high-performing agents who can't afford
+                            is designed specifically for high-performing agents who can&apos;t afford
                             to let a single inquiry slip through the cracks.
                         </AboutDescription>
                         <AboutDescription variant="body1">

@@ -3,13 +3,26 @@
 import { useEffect, useState } from "react";
 import { Container, Typography, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip } from "@mui/material";
 
+interface Lead {
+    id: string;
+    created_at: string;
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+}
+
 export default function Dashboard() {
-    const [leads, setLeads] = useState([]);
+    const [leads, setLeads] = useState<Lead[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         fetch("/api/leads")
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) return res.json().then(d => { throw new Error(d.error || 'Failed to fetch') });
+                return res.json();
+            })
             .then((data) => {
                 if (data.leads) {
                     setLeads(data.leads);
@@ -18,6 +31,7 @@ export default function Dashboard() {
             })
             .catch(err => {
                 console.error("Error fetching leads:", err);
+                setError(err.message);
                 setLoading(false);
             });
     }, []);
@@ -52,6 +66,12 @@ export default function Dashboard() {
                                     Loading leads...
                                 </TableCell>
                             </TableRow>
+                        ) : error ? (
+                            <TableRow>
+                                <TableCell colSpan={6} align="center" sx={{ py: 4, color: 'error.main' }}>
+                                    Error: {error}
+                                </TableCell>
+                            </TableRow>
                         ) : leads.length === 0 ? (
                             <TableRow>
                                 <TableCell colSpan={6} align="center" sx={{ py: 4 }}>
@@ -59,7 +79,7 @@ export default function Dashboard() {
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            leads.map((lead: any) => (
+                            leads.map((lead) => (
                                 <TableRow key={lead.id} hover>
                                     <TableCell>
                                         {new Date(lead.created_at).toLocaleDateString()}

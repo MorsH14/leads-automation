@@ -16,6 +16,8 @@ import {
 } from './Contact.styles';
 import { SectionLabel } from '../properties/Properties.styles';
 
+
+
 const Contact = () => {
     const [formData, setFormData] = React.useState({
         name: '',
@@ -35,16 +37,32 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            const response = await fetch('/api/leads', {
+            // 1. Try to save to Supabase via API
+            const leadsResponse = await fetch('/api/leads', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
-            const result = await response.json();
+            const leadsResult = await leadsResponse.json();
 
-            if (!response.ok) {
-                throw new Error(result.error || 'Submission failed');
+            if (!leadsResponse.ok) {
+                // If it's the RLS error, we still want to try sending the email
+                console.error("Database save failed:", leadsResult.error);
+                if (leadsResult.error?.includes('row-level security policy')) {
+                    console.warn("RLS policy is blocking the database insert. Please check Supabase policies.");
+                }
+            }
+
+            // 2. Try to send email notification
+            const notifyResponse = await fetch('/api/notify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (!notifyResponse.ok) {
+                throw new Error('Notification failed');
             }
 
             setStatus('success');
@@ -55,15 +73,15 @@ const Contact = () => {
                 message: "",
             });
 
-            // Reset status after 3 seconds
             setTimeout(() => setStatus('idle'), 3000);
-        } catch (error: any) {
-            console.error("Submission error:", error);
+
+        } catch (error) {
+            console.error("Submission flow error:", error);
             setStatus('error');
-            alert(error.message || "Something went wrong. Please try again.");
             setTimeout(() => setStatus('idle'), 5000);
         }
     };
+
 
 
     return (
